@@ -4,7 +4,7 @@ import sys
 def main():
 
     print('hello')
-    # video_capture = cv2.VideoCapture(1)
+    video_capture = cv2.VideoCapture(0)
     # video_capture = 'ad'
     print('after video capture')
     got_image, bgr_image_input = video_capture.read()
