@@ -11,7 +11,7 @@ MARKER_WIDTH = 10.625
 
 def main():
     # Read in an image, and convert it to grayscale.
-    marker_image = cv2.imread("stones.jpg", cv2.IMREAD_GRAYSCALE)
+    marker_image = cv2.imread("contrast_marker.jpg", cv2.IMREAD_GRAYSCALE)
     if marker_image is None:
         print("Can't read marker image from file")
         sys.exit()
@@ -132,9 +132,18 @@ def draw_coordinate_frame(bgr_image, K, rvec, tvec):
     P_c = np.matmul(R_o_c, Paxes) + np.reshape(to_c, (3, 1))
     p = np.matmul(K, P_c)
     p = (p / p[2, :]).astype(int)
-    cv2.line(img=bgr_image, pt1=(p[0, 0], p[1, 0]), pt2=(p[0, 1], p[1, 1]), color=(0, 0, 255), thickness=2)
-    cv2.line(img=bgr_image, pt1=(p[0, 0], p[1, 0]), pt2=(p[0, 2], p[1, 2]), color=(0, 255, 0), thickness=2)
-    cv2.line(img=bgr_image, pt1=(p[0, 0], p[1, 0]), pt2=(p[0, 3], p[1, 3]), color=(255, 0, 0), thickness=2)
+    cv2.line(img=bgr_image, pt1=(p[0, 0], p[1, 0]), pt2=(p[0, 1], p[1, 1]), color=(0, 0, 255), thickness=5)
+    cv2.line(img=bgr_image, pt1=(p[0, 0], p[1, 0]), pt2=(p[0, 2], p[1, 2]), color=(0, 255, 0), thickness=5)
+    cv2.line(img=bgr_image, pt1=(p[0, 0], p[1, 0]), pt2=(p[0, 3], p[1, 3]), color=(255, 0, 0), thickness=5)
+    cv2.line(img=bgr_image, pt1=(p[0, 1], p[1, 1]), pt2=(p[0, 3], p[1, 3]), color=(255, 165, 0), thickness=5)
+    cv2.line(img=bgr_image, pt1=(p[0, 3], p[1, 3]), pt2=(p[0, 2], p[1, 2]), color=(0, 165, 255), thickness=5)
+    cv2.line(img=bgr_image, pt1=(p[0, 2], p[1, 3]), pt2=(p[0, 0], p[1, 1]), color=(0, 165, 255), thickness=5)
+    cv2.line(img=bgr_image, pt1=(p[0, 3], p[1, 3]), pt2=(p[0, 0], p[1, 1]), color=(0, 165, 255), thickness=5)
+
+    # cv2.circle(img=bgr_image, center=(p[0,0], p[1,0]), radius=40, color=(0,255,0), thickness=4)
+
 
 if __name__ == "__main__":
     main()
+
+
